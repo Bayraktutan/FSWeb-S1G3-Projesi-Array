@@ -40,9 +40,11 @@ Aşağıdakileri yapmak için aşağıdaki kopyalama işlevini kullanın:
 */
 
 
-function kopyala(/*kod buraya*/){
-  /*kod buraya*/
+function kopyala(originalArray){
+  let copyArray = [...originalArray]
+  return copyArray
 }
+kopyala(orijinalTatlar)
 
 
 /* Görev 2:
@@ -56,10 +58,14 @@ Bir dizinin tam olarak 25 çeşit olduğunu onaylayın. İşleviniz şunları ka
 */
 
 
-function dizi25Cesitmi(/*kod buraya*/){
-  /*kod buraya*/
+function dizi25Cesitmi(arraytoCheck){
+  if(arraytoCheck.length === 25){
+    return true
+  }else{
+    return false
+  }
 }
-
+dizi25Cesitmi(orijinalTatlar)
 
 /* Görev 3:
 Pastane sahibi size yeni bir lezzet fikriyle geldi: Kakule! Bunun da çok tutacağından çok emin. Bu lezzeti eklemek için diziyi değiştirmeniz gerekir.
@@ -74,9 +80,11 @@ Aşağıdakileri yapmak için cesitEkle işlevini kullanın:
 */
 
 
-function cesitEkle(/*kod buraya*/){
-  /*kod buraya*/
+function cesitEkle(tatlar, string){
+  tatlar.unshift(string)
+  return tatlar
 }
+cesitEkle(orijinalTatlar, "Kakule")
 
 
 /* Cörev 4:
@@ -92,9 +100,11 @@ Aşağıdakileri yapmak için sonCesitiKaldir işlevini kullanın:
 */
 
 
-function sonCesitiKaldir(/*kod buraya*/){
-  /*kod buraya*/
+function sonCesitiKaldir(unshiftedArray){
+  unshiftedArray.pop()
+  return unshiftedArray
 }
+sonCesitiKaldir(orijinalTatlar)
 
 
 /* Görev 5:
@@ -108,10 +118,10 @@ Aşağıdakileri yapmak için aşağıdaki indekstekiCesitiGetir işlevini kulla
    Örneğin: indekstekiCesitiGetir(orijinalTatlar, 2) çalıştırılmasıyla, Kakule'in başarıyla eklendiği varsayarsak sonuç "Ceviz" olucaktır.
 */
 
-function indekstekiCesitiGetir(/*kod buraya*/){
-  /*kod buraya*/
+function indekstekiCesitiGetir(tatlar, index){
+  return tatlar[index]
 }
-
+indekstekiCesitiGetir(orijinalTatlar,2)
 
 /* Görev 6:
 
@@ -128,9 +138,13 @@ Aşağıdakileri yapmak için ismeGoreCesitCikar işlevini kullanın:
   İPUCU: Bunun için .splice() kullanabilirsiniz.
 */
 
-function ismeGoreCesitCikar(/*kod buraya*/){
-  /*kod buraya*/
+function ismeGoreCesitCikar(tatlar, lezzet){
+  let lezzetIndex = tatlar.indexOf(lezzet)
+  tatlar.splice(lezzetIndex, 1)
+  return tatlar
 }
+ismeGoreCesitCikar(orijinalTatlar, "Tarçın")
+
 
 
 /* Görev 7:
@@ -153,11 +167,16 @@ Aşağıdakileri yapmak için ismeGoreFiltrele işlevini kullanın:
   Bu sorunu çözmek için GELİŞMİŞ DİZİ YÖNTEMLERİNİ (yani .filter) KULLANMAYIN.
 */
 
-
-function ismeGoreFiltrele(/*kod buraya*/){
-  /*kod buraya*/
+let valentinesDay = []
+function ismeGoreFiltrele(tatlar, filtre){
+  for(let i=0; i<tatlar.length; i++){
+    if(tatlar[i].includes(filtre)){
+      valentinesDay.push(tatlar[i])
+    }
+  }
+  return valentinesDay
 }
-
+console.log(valentinesDay)
 
 
 /* ALIŞTIRMA */
@@ -171,10 +190,19 @@ Aşağıdakileri yapmak için ortalamaKelimeSayisi işlevini kullanın:
 
    Örneğin: ortalamaKelimeSayisi(orijinalTatlar) 0 ile 2 arasında bir sayı döndürmelidir.
 */
-
-function ortalamaKelimeSayisi(/*kod buraya*/){
-  /*kod buraya*/
+let sum = 0
+let wordCount = []
+function ortalamaKelimeSayisi(tatList){
+  for(let i=0; i<tatList.length; i++){
+    let count = tatList[i].split(" ").length
+    wordCount.push(Number(count))
+  }
+  for(let i=0; i<wordCount.length; i++){
+    sum = sum + wordCount[i]
+  }
+  console.log(sum/wordCount.length)
 }
+ortalamaKelimeSayisi(orijinalTatlar)
 
 
 /* ALIŞTIRMA 2:
@@ -190,47 +218,59 @@ Aşağıdakileri yapmak için rastgeleTatlar işlevini ve yeni dizileri kullanı
 */
 
 
-function rastgeleTatlar(/*kod buraya*/){
-  /*kod buraya*/
+function rastgeleTatlar(){
+  orijinalTatlar.splice(Math.ceil(Math.random()*orijinalTatlar.length), orijinalTatlar.length)
+  yeniTatlar.splice(Math.ceil(Math.random()*yeniTatlar.length))
+  let randomTwoArray = orijinalTatlar.concat(yeniTatlar)
+  if(randomTwoArray.length<25){
+    let rastgeleTatlar = randomTwoArray.concat(mevsimlikTatlar, bolgeselTatlar)
+    rastgeleTatlar.splice(25,100)
+    return rastgeleTatlar
+  }else if(randomTwoArray.length>=25){
+    let rastgeleTatlar = randomTwoArray
+    rastgeleTatlar.splice(25,100)
+    return rastgeleTatlar
+  }
 }
 
+
 // NEW DATA ARRAYS FOR STRETCH 2 ⬇️
-// const yeniTatlar = [
-//   "Badem",
-//   "Ballı Badem",
-//   "Fıstık Ezmesi",
-//   "Profiterol",
-//   "Madlen Çikolata"
-// ]
+const yeniTatlar = [
+  "Badem",
+  "Ballı Badem",
+  "Fıstık Ezmesi",
+  "Profiterol",
+  "Madlen Çikolata"
+]
 
-// const mevsimlikTatlar = [
-// "Pekan",
-// "Kaju",
-// "Çikolatalı Mousse",
-// "Fransız Vanilyası",
-// "Yumurta",
-// "Alman çikolatası",
-// "Kek üzerine krema",
-// "Hindistan Cevizi",
-// "Kaymaklı Biskuvi",
-// "Beyaz Çikolata",
-// "Mango"
-// ]
+const mevsimlikTatlar = [
+"Pekan",
+"Kaju",
+"Çikolatalı Mousse",
+"Fransız Vanilyası",
+"Yumurta",
+"Alman çikolatası",
+"Kek üzerine krema",
+"Hindistan Cevizi",
+"Kaymaklı Biskuvi",
+"Beyaz Çikolata",
+"Mango"
+]
 
-// const bolgeselTatlar = [
-// "Kaymak",
-// "Karpuz",
-// "Karadut",
-// "Turunç",
-// "Portakal",
-// "Yogurt",
-// "Krem Peynir",
-// "Kakao",
-// "Karamel macchiato",
-// "Kuru üzüm",
-// "Peynir",
-// "Karamel"
-// ]
+const bolgeselTatlar = [
+"Kaymak",
+"Karpuz",
+"Karadut",
+"Turunç",
+"Portakal",
+"Yogurt",
+"Krem Peynir",
+"Kakao",
+"Karamel macchiato",
+"Kuru üzüm",
+"Peynir",
+"Karamel"
+]
 
 
 /* Lütfen bu satırın altındaki hiçbir şeyi değiştirmeyin */
